@@ -1,0 +1,108 @@
+- Host: localhost    Database: messageBoard
+-- ------------------------------------------------------
+-- Server version       8.0.15
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8mb4 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `forums`
+--
+
+DROP TABLE IF EXISTS `forums`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `forums` (
+  `ForumID` int(8) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(80) NOT NULL,
+  `Description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ForumID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `forums`
+--
+
+LOCK TABLES `forums` WRITE;
+/*!40000 ALTER TABLE `forums` DISABLE KEYS */;
+INSERT INTO `forums` VALUES (1,'Looking for Group',NULL);
+/*!40000 ALTER TABLE `forums` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `replies`
+--
+
+DROP TABLE IF EXISTS `replies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `replies` (
+  `ReplyID` int(8) NOT NULL AUTO_INCREMENT,
+  `Content` text NOT NULL,
+  `User` varchar(80) NOT NULL,
+  `Timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ThreadID` int(8) NOT NULL,
+  PRIMARY KEY (`ReplyID`),
+  KEY `ThreadID` (`ThreadID`),
+  CONSTRAINT `replies_ibfk_1` FOREIGN KEY (`ThreadID`) REFERENCES `threads` (`ThreadID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `replies`
+--
+
+LOCK TABLES `replies` WRITE;
+/*!40000 ALTER TABLE `replies` DISABLE KEYS */;
+INSERT INTO `replies` VALUES (1,'i have a room','umar','2019-03-09 23:24:02',1),(2,'have a space','um','2019-03-11 16:24:37',2);
+/*!40000 ALTER TABLE `replies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `threads`
+--
+
+DROP TABLE IF EXISTS `threads`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `threads` (
+  `ThreadID` int(8) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(80) NOT NULL,
+  `Content` text NOT NULL,
+  `User` varchar(80) NOT NULL,
+  `Timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ForumID` int(8) NOT NULL,
+  PRIMARY KEY (`ThreadID`),
+  KEY `ForumID` (`ForumID`),
+  CONSTRAINT `threads_ibfk_1` FOREIGN KEY (`ForumID`) REFERENCES `forums` (`ForumID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `threads`
+--
+
+LOCK TABLES `threads` WRITE;
+/*!40000 ALTER TABLE `threads` DISABLE KEYS */;
+INSERT INTO `threads` VALUES (1,'look for group','group 4','john','2019-03-09 23:21:27',1),(2,'group','search','eddie','2019-03-11 16:21:43',1);
+/*!40000 ALTER TABLE `threads` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
