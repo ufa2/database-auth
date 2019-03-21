@@ -1,0 +1,55 @@
+{
+	"stats": 
+	{
+		"STR": "int",
+		"DEX": "int",
+		"CONST": "int",
+		"INT": "int",
+		"WIS": "int",
+		"CHA": "int"
+	},
+	"passive_perception":"int",
+	"saving_throws": 
+	{
+		"strength": "int",
+		"dexterity": "int",
+		"constitution": "int",
+		"intelligence": "int",
+		"wisdom": "int",
+		"charisma": "int"
+	},
+	"armor_class":"int",
+	"speed":"int",
+	"hit_point_max":"int",
+	"skills": 
+	{
+		"acrobatics": "int",
+		"animal_handling": "int",
+		"arcana": "int",
+		"athletic": "int",
+		"deception": "int",
+		"history": "int",
+		"insight": "int",
+		"investigation": "int",
+		"medicine": "int",
+		"nature": "int",
+		"perception": "int",
+		"performance": "int",
+		"persuation": "int",
+		"religion": "int",
+		"sleight_of_hand": "int",
+		"stealth":"int",
+		"survival":"int",
+		"herbalism_kit":"int"
+	},
+	"weapons":["object"],
+	"spells": ["object"],
+	"equipment": ["object"],
+	"features_and_traits":["object"],
+	"proficiencies_and_langauges":["object"],
+	"personality_traits":"string",
+	"ideals": "string",
+	"bonds":"string",
+	"flaws":"string",
+	"hit_dice":"string"
+}
