@@ -1,0 +1,87 @@
+create database users;
+
+create table account (username varchar(50) primary key not null, password varchar(100) not null);
+
+delimiter /                                                                                                                                            
+create procedure getPassword(IN ID varchar(50))                                                                                                        
+begin                                                                                                                                                  
+select password from account where username = ID;                                                                                                      
+end;                                                                                                                                                   
+/                                                                                                                                                      
+
+delimiter /                                                                                                                                            
+create procedure insertUser(IN userid varchar(50), IN pass varchar(100))                                                                               
+begin                                                                                                                                                  
+insert into account(username,password) values(userid,pass);                                                                                            
+end;                                                                                                                                                   
+/                                                                                                                                                      
+
+create user 'auth-client'@'%' identified by 'njit490'; 
+
+                                                                                                
+grant execute on procedure users.insertUser to 'auth-client'@'%';    
+
+                                                                                                                                                                      
+grant execute on procedure users.insertUser to 'auth-client'@'%';	
+
+
+create database messageBoard;
+use messageBoard;
+
+create table forums (ForumID int(8) primary key not null AUTO_INCREMENT,Name varchar(80) not null, Description varchar(255));
+
+create table replies  (ReplyID int(8) primary key not null auto_increment,Content TEXT NOT NULL, User varchar(80) not null, Timestamp DATETIME NOT NULL);
+
+ALTER TABLE replies ADD FOREIGN KEY(ThreadID) REFERENCES threads(ThreadID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+create table threads  (ThreadID int(8) primary key not null auto_increment, Name varchar(80) not null, Content TEXT NOT NULL, User varchar(80) not null, Timestamp DATETIME NOT NULL);	
+
+ALTER TABLE threads ADD FOREIGN KEY(ForumID) REFERENCES forums(ForumID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+delimiter /                                                                                                                                            
+create procedure getForums()                                                                                                        
+begin                                                                                                                                                  
+select * from forums;                                                                                                    
+end;                                                                                                                                                   
+/
+
+
+delimiter /                                                                                                                                            
+mysql> create procedure getThreads(IN ID int(8) )                                                                                                     
+begin                                                                                                                                                  
+select * from threads where ForumID = ID;                                                                                                 
+end;                                                                                                                                                   
+/                                                                                                                                
+
+delimiter /                                                                                                                                            
+create procedure getReplies(IN ID int(8) )                                                                                                    
+begin                                                                                                                                                  
+select * from replies where ThreadID = ID;                                                                                                 
+end;                                                                                                                                                   
+/    
+
+delimiter / 
+create procedure createThread(IN ID int(8),nam varchar(80), cont TEXT, usr varchar(80))
+begin
+insert into threads(ForumID,Name,Content,User) values ( ID,nam,cont,usr);
+end;                                                                                                                                                   
+/
+
+create procedure createReply(IN tID int(8),cont TEXT, usr varchar(80))
+begin
+insert into replies(ThreadID,Content,User) values ( tID,cont,usr);
+end;
+/
+
+
+create user 'forum-client'@'%' identified by 'it490';  
+
+grant execute on procedure messageBoard.getForums to 'forum-client'@'%';	
+
+grant execute on procedure messageBoard.getThreads to 'forum-client'@'%';
+
+grant execute on procedure messageBoard.getReplies to 'forum-client'@'%';
+
+grant execute on procedure messageBoard.createThread to 'forum-client'@'%';	
+
+grant execute on procedure messageBoard.createReply to 'forum-client'@'%';																																			 																																		 																																			 																																			 																																		 
