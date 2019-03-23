@@ -74,6 +74,13 @@ end;
 /
 
 
+create procedure getContent(IN ID int(8))
+begin
+select Content from threads where ThreadID = ID;
+END;
+/
+
+
 create user 'forum-client'@'%' identified by 'it490';  
 
 grant execute on procedure messageBoard.getForums to 'forum-client'@'%';	
@@ -84,4 +91,6 @@ grant execute on procedure messageBoard.getReplies to 'forum-client'@'%';
 
 grant execute on procedure messageBoard.createThread to 'forum-client'@'%';	
 
-grant execute on procedure messageBoard.createReply to 'forum-client'@'%';																																			 																																		 																																			 																																			 																																		 
+grant execute on procedure messageBoard.createReply to 'forum-client'@'%';	
+
+grant execute on procedure messageBoard.getContent to 'forum-client'@'%';
