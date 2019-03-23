@@ -73,12 +73,12 @@ insert into replies(ThreadID,Content,User) values ( tID,cont,usr);
 end;
 /
 
-
-create procedure getContent(IN ID int(8))
+create procedure getThread(IN ID int(8))
 begin
-select Content from threads where ThreadID = ID;
-END;
-/
+select * from threads where ThreadID = ID;
+ end;
+ /
+
 
 
 create user 'forum-client'@'%' identified by 'it490';  
@@ -93,4 +93,4 @@ grant execute on procedure messageBoard.createThread to 'forum-client'@'%';
 
 grant execute on procedure messageBoard.createReply to 'forum-client'@'%';	
 
-grant execute on procedure messageBoard.getContent to 'forum-client'@'%';
+grant execute on procedure messageBoard.getThread to 'forum-client'@'%';
