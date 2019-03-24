@@ -1,71 +1,28 @@
+# Message Board Database
+## ER Diagram
+![messageBoard database ERD](https://raw.githubusercontent.com/ufa2/database-auth/master/MessageBoard_ERD.png)
 
+## Stored Procedures
 
-```
->>> MESSAGE BOARD >>> 
+* getForums()
+* getThreads(ForumID)
+* getThread(ThreadID)
+* getReplies(ThreadID)
 
->>>>>>Storage procedures for Message Board >>>>
+* createThread(ForumID, Name, Content, User)
+* createReply(ThreadID, Content, User)
 
-Authentication :
+### User to execute procedures
+`forums-client`
+<br/><br/>
+# Users Database
+## ER Diagram
+![users database ERD](https://raw.githubusercontent.com/ufa2/database-auth/master/Users_ERD.png)
 
-create user 'forum-client'@'%' identified by 'njit490'; 
+## Stored Procedures
 
-Login: forum-client      password: it490
-```
-```
-getForum Procedure 
+* getPassword(Username)
+* createUser(Username,Password)
 
-mysql> delimiter /                                                                                                                                            
-mysql> create procedure getForums()                                                                                                        
-    -> begin                                                                                                                                                  
-    -> select * from forums;                                                                                                    
-    -> end;                                                                                                                                                   
-    -> /  
-```
-```
- getThread Procedure 
- 
- mysql> delimiter /                                                                                                                                            
-mysql> create procedure getThreads(IN ID int(8) )                                                                                                     
-    -> begin                                                                                                                                                  
-    -> select * from threads where ForumID = ID;                                                                                                 
-    -> end;                                                                                                                                                   
-    -> /    
-``` 
-```
-
- getReplies Procedure 
- 
-ysql> delimiter /                                                                                                                                            
-mysql> create procedure getReplies(IN ID int(8) )                                                                                                    
-    -> begin                                                                                                                                                  
-    -> select * from replies where ThreadID = ID;                                                                                                 
-    -> end;                                                                                                                                                   
-    -> /  
-```    
-```
-  Insert Procedure 
-  createThread Procedure
-`
-mysql> delimiter / 
-mysql>create procedure createThread(IN ID int(8),nam varchar(80), cont TEXT, usr varchar(80))
- -> begin
-->insert into threads(ForumID,Name,Content,User) values ( ID,nam,cont,usr) 
- -> end;                                                                                                                                                   
-    -> /  
-``` 
-```
-
-createReply Procedure 
-
-create procedure createThread(IN ID int(8),nam varchar(80), cont TEXT, usr varchar(80))
-begin
-insert into threads(ForumID,Name,Content,User) values ( ID,nam,cont,usr) 
-end;
-```
-
-
-
-   
-   
-    
-    
+### User to execute procedures
+`authentication-client`
