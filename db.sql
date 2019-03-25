@@ -27,23 +27,24 @@ DROP PROCEDURE IF EXISTS `getPassword`;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `getPassword`(IN `ID` VARCHAR(50))
 BEGIN
-SELECT `password` FROM `account` WHERE `username` = `ID`;
+SELECT `password` FROM `accounts` WHERE `username` = `ID`;
 END ;;
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS `insertUser`;
+DROP PROCEDURE IF EXISTS `createUser`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `insertUser`(IN `userid` VARCHAR(50), IN `pass` VARCHAR(100))
+CREATE DEFINER=`root`@`%` PROCEDURE `createUser`(IN `userid` VARCHAR(50), IN `pass` VARCHAR(100))
 BEGIN
-INSERT INTO `account` (`username`, `password`) VALUES (`userid`,`pass`);
+INSERT INTO `accounts` (`username`, `password`) VALUES (`userid`,`pass`);
 END ;;
 DELIMITER ;
 
 
 DROP USER IF EXISTS `auth-client`;
-CREATE USER 'auth-client'@'%' IDENTIFIED BY 'njit490';
+CREATE USER 'auth-client'@'%' IDENTIFIED BY 'pass';
 
--- GRANT EXECUTE ON PROCEDURE users.* to 'auth-client'@'%';
+GRANT EXECUTE ON PROCEDURE users.createUser to 'auth-client'@'%';
+GRANT EXECUTE ON PROCEDURE users.getPassword to 'auth-client'@'%';
 
 
 
@@ -172,6 +173,11 @@ END ;;
 DELIMITER ;
 
 DROP USER IF EXISTS `forum-client`;
-CREATE USER 'forum-client'@'%' IDENTIFIED BY 'it490';  
+CREATE USER 'forum-client'@'%' IDENTIFIED BY 'pass';
 
--- GRANT EXECUTE ON PROCEDURE messageBoard.* TO 'forum-client'@'%';
+GRANT EXECUTE ON PROCEDURE messageBoard.getForums TO 'forum-client'@'%';
+GRANT EXECUTE ON PROCEDURE messageBoard.getThreads TO 'forum-client'@'%';
+GRANT EXECUTE ON PROCEDURE messageBoard.getThread TO 'forum-client'@'%';
+GRANT EXECUTE ON PROCEDURE messageBoard.getReplies TO 'forum-client'@'%';
+GRANT EXECUTE ON PROCEDURE messageBoard.createThread TO 'forum-client'@'%';
+GRANT EXECUTE ON PROCEDURE messageBoard.createReply TO 'forum-client'@'%';
