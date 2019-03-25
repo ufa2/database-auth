@@ -181,3 +181,5 @@ GRANT EXECUTE ON PROCEDURE messageBoard.getThread TO 'forum-client'@'%';
 GRANT EXECUTE ON PROCEDURE messageBoard.getReplies TO 'forum-client'@'%';
 GRANT EXECUTE ON PROCEDURE messageBoard.createThread TO 'forum-client'@'%';
 GRANT EXECUTE ON PROCEDURE messageBoard.createReply TO 'forum-client'@'%';
+
+ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'pass'
