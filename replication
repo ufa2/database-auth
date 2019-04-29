@@ -1,0 +1,28 @@
+docker run -d -e MYSQL_ROOT_PASSWORD=pass --name mydb jtn7/db:master
+
+docker exec -i mydb mysql -u 'root' -p'pass' < db/db.sql
+
+docker exec -i mydb mysql -u 'root' -p'pass' < db/master.sql
+
+
+
+
+docker run -d -e MYSQL_ROOT_PASSWORD=pass --name slave jtn7/db:slave
+
+
+
+docker exec -i slave mysql -u 'root' -p'pass' < db/db.sql
+
+edit slave.sql file ... from step 4.
+
+
+
+docker exec -i slave mysql -u 'root' -p'pass' < db/slave.sql
+
+
+
++------------------+----------+--------------------+------------------+-------------------+
+| File             | Position | Binlog_Do_DB       | Binlog_Ignore_DB | Executed_Gtid_Set |
++------------------+----------+--------------------+------------------+-------------------+
+| mysql-bin.000003 |    13209 | users,messageBoard |                  |                   |
++------------------+----------+--------------------+------------------+
